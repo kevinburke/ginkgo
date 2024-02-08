@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/go-logr/logr"
@@ -292,9 +291,12 @@ func RunSpecs(t GinkgoTestingT, description string, args ...interface{}) bool {
 
 	err = global.Suite.BuildTree()
 	exitIfErr(err)
-	suitePath, err := os.Getwd()
-	exitIfErr(err)
-	suitePath, err = filepath.Abs(suitePath)
+	/*
+		suitePath, err := os.Getwd()
+		exitIfErr(err)
+		suitePath, err = filepath.Abs(suitePath)
+	*/
+	suitePath := ""
 	exitIfErr(err)
 
 	passed, hasFocusedTests := global.Suite.Run(description, suiteLabels, suitePath, global.Failer, reporter, writer, outputInterceptor, interrupt_handler.NewInterruptHandler(client), client, internal.RegisterForProgressSignal, suiteConfig)
@@ -369,9 +371,12 @@ func PreviewSpecs(description string, args ...any) Report {
 
 	err = global.Suite.BuildTree()
 	exitIfErr(err)
-	suitePath, err := os.Getwd()
-	exitIfErr(err)
-	suitePath, err = filepath.Abs(suitePath)
+	/*
+		suitePath, err := os.Getwd()
+		exitIfErr(err)
+		suitePath, err = filepath.Abs(suitePath)
+	*/
+	suitePath := ""
 	exitIfErr(err)
 
 	global.Suite.Run(description, suiteLabels, suitePath, global.Failer, reporter, writer, outputInterceptor, interrupt_handler.NewInterruptHandler(client), client, internal.RegisterForProgressSignal, suiteConfig)
